@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
+import { ChakraProvider } from '@chakra-ui/react'
 import '@rainbow-me/rainbowkit/styles.css'
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { configureChains, createClient, goerli, WagmiConfig } from 'wagmi'
@@ -28,7 +29,9 @@ root.render(
   <React.StrictMode>
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
-        <App />
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   </React.StrictMode>,
