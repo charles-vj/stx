@@ -1,5 +1,6 @@
 .App {
   background-color: #E5E4E4;
+  min-height: 100vh;
 }
 
 .nav {
@@ -9,7 +10,16 @@
   padding: 2rem;
 }
 
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .minter {
   width: 40%;
   align-self: center;
+  margin: 2rem;
 }
+
+

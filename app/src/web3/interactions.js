@@ -2,42 +2,47 @@ import { ethers } from 'ethers'
 import { stxAbi } from '../abis/STX'
 
 const STX_ADDRESS = '0x37E90ceC5b6404604C30afc395c9C356b1522C7A'
-export const fetchBalance = async () => {
+export const fetchBalance = async (address) => {
   const abi = stxAbi
   const provider = new ethers.providers.JsonRpcProvider(
     'https://rpc.ankr.com/eth_goerli	',
   )
-  const signer = provider.getSigner()
   const contract = new ethers.Contract(STX_ADDRESS, abi, provider)
-  const balance = await contract.balanceOf(
-    '0x14630821f64ddc3bfc4e25e4bbebe35969b47888',
-  )
-  console.log(balance)
+  const balance = await contract.balanceOf(address)
+  console.log('FETCHING BALANCE')
   return ethers.utils.formatUnits(balance, 18)
 }
 
-export const approve = async () => {
+export const transfer = async (address, amount) => {
+  amount = ethers.utils.parseUnits(amount)
   const abi = stxAbi
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
   const contract = new ethers.Contract(STX_ADDRESS, abi, provider)
   const signedContract = contract.connect(signer)
-  const swapValue = await signedContract.approve(
-    '0x14630821F64DDc3bFc4E25e4bbEbE35969B47888',
-    ethers.constants.MaxUint256,
-  )
-  console.log('approved')
+
+  try {
+    const transferValue = await signedContract.transfer(address, amount)
+    await transferValue.wait()
+  } catch (e) {
+    console.log(e.message)
+    return e.message.substring(0, 25)
+  }
 }
-export const transfer = async () => {
+export const mint = async (address, amount) => {
+  amount = ethers.utils.parseUnits(amount)
+  console.log(amount)
+  console.log(address)
   const abi = stxAbi
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
   const contract = new ethers.Contract(STX_ADDRESS, abi, provider)
   const signedContract = contract.connect(signer)
-  const transferValue = await signedContract.transfer(
-    '0x14630821F64DDc3bFc4E25e4bbEbE35969B47888',
-    '1',
-  )
-  console.log('approved')
-  return transferValue
+  try {
+    const transferValue = await signedContract.mint(address, amount)
+    await transferValue.wait()
+  } catch (e) {
+    console.log(e.message.substring(0, 25))
+    return e.message.substring(0, 25)
+  }
 }
