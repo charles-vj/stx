@@ -14,7 +14,11 @@ export const fetchBalance = async (address) => {
 }
 
 export const transfer = async (address, amount) => {
-  amount = ethers.utils.parseUnits(amount)
+  try {
+    amount = ethers.utils.parseUnits(amount)
+  } catch (e) {
+    return e.message
+  }
   const abi = stxAbi
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
@@ -30,7 +34,11 @@ export const transfer = async (address, amount) => {
   }
 }
 export const mint = async (address, amount) => {
-  amount = ethers.utils.parseUnits(amount)
+  try {
+    amount = ethers.utils.parseUnits(amount)
+  } catch (e) {
+    return e.message
+  }
   console.log(amount)
   console.log(address)
   const abi = stxAbi
