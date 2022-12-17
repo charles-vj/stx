@@ -16,12 +16,13 @@ import {
   useToast,
   Heading,
 } from '@chakra-ui/react'
-import { useAccount } from 'wagmi'
+import { useAccount, useNetwork } from 'wagmi'
 import { useEffect, useState } from 'react'
 import { approve, fetchBalance, mint, transfer } from './web3/interactions'
 import { ethers } from 'ethers'
 function App() {
   const toast = useToast()
+  const { chain } = useNetwork()
   const { address, isConnected } = useAccount()
   const [balance, setBalance] = useState('0')
   const [mintValue, setMintValue] = useState('')
@@ -126,7 +127,7 @@ function App() {
             <FormLabel>
               <Center fontSize={'3xl'}>Faucet</Center>
             </FormLabel>
-            <Skeleton isLoaded={isConnected}>
+            <Skeleton isLoaded={isConnected && chain.id == 5}>
               <Input
                 value={mintAddress}
                 onChange={handleMintAddressChange}
@@ -147,7 +148,7 @@ function App() {
                 <>Connect your wallet first</>
               )}
             </FormHelperText>
-            <Skeleton isLoaded={isConnected}>
+            <Skeleton isLoaded={isConnected && chain.id == 5}>
               <Input
                 mt={2}
                 value={mintValue}
@@ -188,7 +189,7 @@ function App() {
             <FormLabel>
               <Center fontSize={'3xl'}>Swapper</Center>
             </FormLabel>
-            <Skeleton isLoaded={isConnected}>
+            <Skeleton isLoaded={isConnected && chain.id == 5}>
               <Input
                 value={transferAddress}
                 onChange={handleTransferAddressChange}
@@ -207,7 +208,7 @@ function App() {
                 <>Connect your wallet first</>
               )}
             </FormHelperText>
-            <Skeleton isLoaded={isConnected}>
+            <Skeleton isLoaded={isConnected && chain.id == 5}>
               <Input
                 value={transferValue}
                 onChange={handleTransferChange}
