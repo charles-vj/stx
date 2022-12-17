@@ -1,5 +1,9 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import './App.css'
+import { FaGithub } from 'react-icons/fa'
+import { FaTwitter } from 'react-icons/fa'
+import { FaLinkedin } from 'react-icons/fa'
+
 import {
   FormControl,
   FormLabel,
@@ -237,6 +241,20 @@ function App() {
             </Center>
           </FormControl>
         </div>
+      </div>
+      <div className="footer">
+        <a href="https://github.com/charles-vj/streax">
+          {' '}
+          <FaGithub />{' '}
+        </a>{' '}
+        <a href="https://twitter.com/Charles_V_J">
+          {' '}
+          <FaTwitter />
+        </a>{' '}
+        <a href="https://www.linkedin.com/in/charles-v-j-641913187/">
+          {' '}
+          <FaLinkedin />
+        </a>
       </div>
     </div>
   )

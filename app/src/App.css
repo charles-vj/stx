@@ -1,6 +1,8 @@
 .App {
   background-color: #E5E4E4;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav {
@@ -21,5 +23,24 @@
   align-self: center;
   margin: 2rem;
 }
+
+.footer {
+  display: flex;
+  width: 10%;
+  align-items: center;
+  justify-content: space-around;
+  align-self: flex-end;
+}
+@media only screen and (max-width: 900px) {
+  .footer {
+    width: 25%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .footer {
+    width: 50%;
+  }
+}
+
 
 
